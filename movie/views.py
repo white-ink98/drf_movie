@@ -1,20 +1,32 @@
 from django.forms import model_to_dict
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Movies
 from .serializers import MoviesSerializer
 
-class MoviesAPIList(generics.ListCreateAPIView):
+
+class MoviesViewSet(viewsets.ModelViewSet):
     queryset = Movies.objects.all()
     serializer_class = MoviesSerializer
 
-class MoviesAPIUpdate(generics.UpdateAPIView):
-    queryset = Movies.objects.all()
-    serializer_class = MoviesSerializer
+# version2
 
+# class MoviesAPIList(generics.ListCreateAPIView):
+#     queryset = Movies.objects.all()
+#     serializer_class = MoviesSerializer
+#
+# class MoviesAPIUpdate(generics.UpdateAPIView):
+#     queryset = Movies.objects.all()
+#     serializer_class = MoviesSerializer
+#
+# class MoviesAPIDetailView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Movies.objects.all()
+#     serializer_class = MoviesSerializer
+
+# version1
 # class MoviesAPIView(APIView):
 #     def get(self, request):
 #         m = Movies.objects.all()
