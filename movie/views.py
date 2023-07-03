@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from .models import Movies
 from .serializers import MoviesSerializer
 
-
+# version 3
 class MoviesViewSet(viewsets.ModelViewSet):
     queryset = Movies.objects.all()
     serializer_class = MoviesSerializer
