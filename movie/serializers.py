@@ -7,14 +7,15 @@ from rest_framework.renderers import JSONRenderer
 from .models import Movies
 
 
-class MoviesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Movies
-        fields = "__all__"
 # class MoviesModel:
 #     def __init__(self, title, content):
 #         self.title = title
 #         self.content = content
+
+class MoviesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movies
+        fields = "__all__"
 
 # class MoviesSerializer(serializers.Serializer):
 #     title = serializers.CharField(max_length=255)
