@@ -10,16 +10,20 @@ from .serializers import MoviesSerializer
 
 class MoviesApiView(APIView):
     def get(self, request):
-        my_list = Movies.objects.all().values()
-        return Response({'posts': list(my_list)})
+        m = Movies.objects.all()
+        #my_list = Movies.objects.all().values()
+        return Response({'posts': MoviesSerializer(m, many=True).data})
 
     def post(self, request):
+        serializer = MoviesSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
         post_new = Movies.objects.create(
             title=request.data['title'],
             content=request.data['content'],
             category_id=request.data['category_id']
         )
-        return Response({'post': model_to_dict(post_new)})
+        return Response({'post': MoviesSerializer(post_new).data})
 # class MoviesApiView(generics.ListAPIView):
 #     queryset = Movies.objects.all()
 #     serializer_class = MoviesSerializer
