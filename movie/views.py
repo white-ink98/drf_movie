@@ -18,12 +18,33 @@ class MoviesApiView(APIView):
         serializer = MoviesSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        post_new = Movies.objects.create(
-            title=request.data['title'],
-            content=request.data['content'],
-            category_id=request.data['category_id']
-        )
-        return Response({'post': MoviesSerializer(post_new).data})
+        # post_new = Movies.objects.create(
+        #     title=request.data['title'],
+        #     content=request.data['content'],
+        #     category_id=request.data['category_id']
+        # )
+        serializer.save()
+
+        #return Response({'post': MoviesSerializer(post_new).data})
+        return Response({'post': serializer.data})
+
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Method PUT not allowed"})
+
+        try:
+            instance = Movies.objects.get(pk=pk)
+        except:
+            return Response({"error": "Object does not exist"})
+
+        serializer = MoviesSerializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"post": serializer.data})
+
+
+
 # class MoviesApiView(generics.ListAPIView):
 #     queryset = Movies.objects.all()
 #     serializer_class = MoviesSerializer

@@ -20,5 +20,6 @@ from movie.views import MoviesApiView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/movielist', MoviesApiView.as_view())
+    path('api/v1/movielist', MoviesApiView.as_view()),
+    path('api/v1/movielist/<int:pk>/', MoviesApiView.as_view()),
 ]
